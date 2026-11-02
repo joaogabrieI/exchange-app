@@ -6,7 +6,7 @@ import { useLanguage } from '../../hooks/useLanguage'
 import { formatAmount, formatDate, formatRatePair } from '../../utils/format'
 import styles from './Converter.module.css'
 
-function Converter({ from, to, amount, rate, effectiveDate }) {
+function Converter({ from, to, amount, rate, effectiveDate, currencies, onFromChange, onToChange }) {
   const { t, locale } = useLanguage()
   const isMobile = useIsMobile()
   const SwapIcon = isMobile ? ArrowUpDown : ArrowLeftRight
@@ -30,7 +30,14 @@ function Converter({ from, to, amount, rate, effectiveDate }) {
           </label>
           <div className={styles.fieldBox}>
             <input id="converter-amount" className={styles.amount} defaultValue={amount} />
-            <CurrencySelect value={from} name="Dólar americano" />
+            <CurrencySelect
+              label={t.converter.send}
+              value={from}
+              options={currencies.options}
+              status={currencies.status}
+              onRetry={currencies.retry}
+              onChange={onFromChange}
+            />
           </div>
         </div>
 
@@ -44,7 +51,15 @@ function Converter({ from, to, amount, rate, effectiveDate }) {
           <span className={styles.fieldLabel}>{t.converter.receive}</span>
           <div className={`${styles.fieldBox} ${styles.fieldBoxOutput}`}>
             <output className={styles.result}>{formatAmount(amount * rate, locale)}</output>
-            <CurrencySelect value={to} name="Real brasileiro" variant="outlined" />
+            <CurrencySelect
+              label={t.converter.receive}
+              value={to}
+              options={currencies.options}
+              status={currencies.status}
+              onRetry={currencies.retry}
+              onChange={onToChange}
+              variant="outlined"
+            />
           </div>
         </div>
       </div>
