@@ -1,0 +1,424 @@
+{
+  "info": {
+    "name": "Hermes — API Frankfurter",
+    "description": "Requisições estudadas para o Currency Exchange App.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.frankfurter.dev/v1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Moedas disponíveis",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "pm.test('contém USD e BRL', () => { const j = pm.response.json(); pm.expect(j).to.have.property('USD'); pm.expect(j).to.have.property('BRL'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/currencies",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "currencies"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Cotação mais recente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "pm.test('traz data e taxa', () => { const j = pm.response.json(); pm.expect(j.date).to.match(/^\\d{4}-\\d{2}-\\d{2}$/); pm.expect(j.rates.BRL).to.be.a('number'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/latest?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "latest"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "EUR → USD",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "pm.test('base EUR', () => pm.expect(pm.response.json().base).to.eql('EUR'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/latest?base=EUR&symbols=USD",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "latest"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "EUR"
+            },
+            {
+              "key": "symbols",
+              "value": "USD"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Data específica (dia útil)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "pm.test('data efetiva igual à pedida', () => pm.expect(pm.response.json().date).to.eql('2026-10-30'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2026-10-30?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2026-10-30"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Data sem cotação (domingo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "pm.test('recua para o último dia útil', () => pm.expect(pm.response.json().date).to.eql('2026-10-30'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2026-11-01?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2026-11-01"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Histórico por intervalo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "pm.test('não inclui fim de semana', () => pm.expect(pm.response.json().rates).to.not.have.property('2026-10-03'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2026-10-01..2026-10-07?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2026-10-01..2026-10-07"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Histórico de 10 anos (granularidade)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "pm.test('dados diários', () => pm.expect(Object.keys(pm.response.json().rates).length).to.be.above(2000));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2016-11-02..2026-11-02?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2016-11-02..2026-11-02"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Erro: par inválido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 404', () => pm.response.to.have.status(404));",
+              "pm.test('mensagem de erro', () => pm.expect(pm.response.json().message).to.eql('not found'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/latest?base=USD&symbols=XXX",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "latest"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "XXX"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Erro: moedas iguais",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 422', () => pm.response.to.have.status(422));",
+              "pm.test('mensagem de erro', () => pm.expect(pm.response.json().message).to.eql('bad currency pair'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/latest?base=USD&symbols=USD",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "latest"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "USD"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Erro: data inválida",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 422', () => pm.response.to.have.status(422));",
+              "pm.test('mensagem de erro', () => pm.expect(pm.response.json().message).to.eql('invalid date'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2026-13-45?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2026-13-45"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Erro: intervalo invertido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 404', () => pm.response.to.have.status(404));",
+              "pm.test('mensagem de erro', () => pm.expect(pm.response.json().message).to.eql('not found'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2026-11-05..2026-10-01?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2026-11-05..2026-10-01"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

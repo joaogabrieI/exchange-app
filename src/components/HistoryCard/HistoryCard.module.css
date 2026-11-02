@@ -1,0 +1,158 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.headings {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.overline {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.periods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: var(--space-1);
+  border-radius: var(--radius-button);
+  background: var(--color-bg);
+}
+
+.stats {
+  display: flex;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.note {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 17px;
+}
+
+.loadingStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.skeleton {
+  height: 65px;
+  border-radius: var(--radius-button);
+  background: var(--color-bg);
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 263px;
+  border-radius: var(--radius-button);
+  background: var(--color-surface-alt);
+  text-align: center;
+}
+
+.spinner {
+  color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+.loadingTitle {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 600;
+}
+
+.loadingText {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 3s;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    gap: 14px;
+  }
+
+  .overline {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0;
+  }
+
+  .periods {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+  }
+
+  .stats,
+  .loadingStats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .skeleton {
+    height: 54px;
+    border-radius: var(--radius-input);
+  }
+
+  .loading {
+    min-height: 168px;
+  }
+
+  .loadingText {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .note {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}

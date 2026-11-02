@@ -1,0 +1,469 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.overline {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.dateArea {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1) var(--space-3);
+}
+
+.latest {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary);
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.latest:hover {
+  text-decoration: underline;
+}
+
+.quoteDate {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-chip);
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.quoteDate:hover {
+  color: var(--color-text);
+}
+
+.quoteDate:focus-within {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Campo nativo invisível sobre o texto: clicar na data abre o calendário do navegador. */
+.dateInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.fields {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.fieldBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 72px;
+  padding: 0 10px 0 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-field);
+}
+
+.fieldBox:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.fieldBoxOutput,
+.fieldBoxOutput:focus-within {
+  background: var(--color-surface-alt);
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
+.amount {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.fieldBoxError,
+.fieldBoxError:focus-within {
+  background: var(--color-error-bg);
+  border-color: var(--color-error-border);
+  box-shadow: none;
+}
+
+.output {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.result {
+  color: var(--color-primary);
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.resultPlaceholder {
+  color: var(--color-disabled-text);
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.fieldError {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-danger);
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.fieldError svg {
+  flex: none;
+}
+
+.warning {
+  display: flex;
+  gap: 10px;
+  padding: var(--space-3);
+  border: 1px solid var(--color-warning-border);
+  border-radius: var(--radius-button);
+  background: var(--color-warning-bg);
+}
+
+.warning svg {
+  flex: none;
+  color: var(--color-warning);
+}
+
+.warningTitle {
+  color: var(--color-warning-title);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.warningText {
+  margin-top: 2px;
+  color: var(--color-warning-text);
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.loadError {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) 10px;
+  padding: var(--space-3);
+  border-radius: var(--radius-button);
+  background: var(--color-danger-soft);
+  color: var(--color-danger-text);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.loadError svg {
+  flex: none;
+}
+
+.retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-field);
+}
+
+.noticeIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-input);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.noticeText {
+  flex: 1;
+  min-width: 0;
+}
+
+.noticeTitle {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 600;
+}
+
+.noticeDescription {
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.noticeClose {
+  display: flex;
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-subtle);
+  cursor: pointer;
+}
+
+.swapSlot {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 72px;
+  margin-top: 24px;
+}
+
+.swap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: var(--shadow-swap);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.swap:hover {
+  background: var(--color-primary-hover);
+}
+
+.rateInfo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.rates {
+  display: flex;
+  gap: var(--space-6);
+  margin: 0;
+}
+
+.rate + .rate {
+  padding-left: var(--space-6);
+  border-left: 1px solid var(--color-border);
+}
+
+.rate dt {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.rate dd {
+  margin: 2px 0 0;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.hint svg {
+  flex: none;
+}
+
+@media (max-width: 768px) {
+  .card {
+    gap: var(--space-3);
+  }
+
+  .overline {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .quoteDate {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .fields {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .field {
+    gap: 6px;
+  }
+
+  .fieldLabel {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .fieldBox {
+    gap: var(--space-2);
+    height: 60px;
+    padding: 0 8px 0 14px;
+    border-radius: var(--radius-button);
+  }
+
+  .notice {
+    padding: var(--space-3);
+  }
+
+  .amount,
+  .result {
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: 0;
+  }
+
+  /* Linha divisória dos dois lados do botão de inverter. */
+  .swapSlot {
+    gap: var(--space-3);
+    height: 40px;
+    margin-top: 0;
+  }
+
+  .swapSlot::before,
+  .swapSlot::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .swap {
+    width: 40px;
+    height: 40px;
+  }
+
+  .rateInfo {
+    padding: var(--space-3);
+    border-top: 0;
+    border-radius: var(--radius-button);
+    background: var(--color-surface-alt);
+  }
+
+  .rates {
+    flex-direction: column;
+    gap: var(--space-2);
+    width: 100%;
+  }
+
+  .rate {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .rate + .rate {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .rate dt {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .rate dd {
+    margin: 0;
+    font-size: 13px;
+    line-height: 16px;
+  }
+}

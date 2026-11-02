@@ -1,0 +1,20 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--card-gap);
+  width: 100%;
+  padding: var(--space-12) var(--page-margin) 64px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: var(--space-6) var(--page-margin) var(--space-8);
+  }
+}
