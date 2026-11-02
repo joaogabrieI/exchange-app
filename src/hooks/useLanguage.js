@@ -1,6 +1,8 @@
-import { texts } from '../constants/texts'
+import { createContext, useContext } from 'react'
 
-// Por enquanto só existe português. A troca de idioma entra com o i18n.
+export const LanguageContext = createContext(null)
+
+// Dá a qualquer componente o idioma atual, a troca de idioma e os textos.
 export function useLanguage() {
-  return { language: 'pt', setLanguage: () => {}, t: texts.pt, locale: texts.pt.locale }
+  return useContext(LanguageContext)
 }

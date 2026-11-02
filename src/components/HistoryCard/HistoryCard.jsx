@@ -33,7 +33,7 @@ function HistoryCard({ from, to, period, onPeriodChange, history }) {
           {PERIODS.map((item) => (
             <PeriodChip
               key={item.id}
-              label={item.id}
+              label={t.history.periodChips[item.id]}
               active={item.id === period.id}
               onClick={() => onPeriodChange(item.id)}
             />
