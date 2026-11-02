@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import { Download, SearchX, X } from 'lucide-react'
 import Badge from '../Badge/Badge'
 import Button from '../Button/Button'
@@ -7,9 +8,11 @@ import RatesGrid from '../RatesGrid/RatesGrid'
 import RatesList from '../RatesList/RatesList'
 import StatusMessage from '../StatusMessage/StatusMessage'
 import TableFilters from '../TableFilters/TableFilters'
+import Toast from '../Toast/Toast'
 import { useIsMobile } from '../../hooks/useIsMobile'
 import { useLanguage } from '../../hooks/useLanguage'
 import { useTableFilters } from '../../hooks/useTableFilters'
+import { buildCsv, buildCsvFilename, downloadCsv } from '../../utils/csv'
 import { formatDate, formatRate } from '../../utils/format'
 import { sortToValue, valueToSort } from '../../utils/sort'
 import styles from './RatesTable.module.css'
@@ -42,12 +45,22 @@ function RatesTable({ from, to, records }) {
   const { t, locale } = useLanguage()
   const isMobile = useIsMobile()
   const table = useTableFilters(records, t.thousandsSeparator)
+  const [exported, setExported] = useState(null)
+  const closeToast = useCallback(() => setExported(null), [])
 
   const pair = `${from} → ${to}`
   const total = records.length
   const shown = table.filtered.length
   const isEmpty = shown === 0
   const canExport = !isEmpty && !table.hasErrors
+
+  const filename = canExport ? buildCsvFilename(from, to, table.filtered) : null
+
+  // table.filtered tem todos os registros filtrados, não só os da página atual.
+  function handleExport() {
+    downloadCsv(buildCsv(table.filtered), filename)
+    setExported({ count: shown, filename })
+  }
 
   const errorMessages = {
     dateOrder: t.filters.dateOrderError,
@@ -74,7 +87,8 @@ function RatesTable({ from, to, records }) {
         </div>
         {!isMobile && (
           <div className={styles.actions}>
-            <Button icon={Download} disabled={!canExport}>
+            {filename && <span className={styles.filename}>{filename}</span>}
+            <Button icon={Download} disabled={!canExport} onClick={handleExport}>
               {t.table.export}
             </Button>
           </div>
@@ -134,11 +148,21 @@ function RatesTable({ from, to, records }) {
 
       {isMobile && (
         <>
-          <Button icon={Download} fullWidth disabled={!canExport}>
+          <Button icon={Download} fullWidth disabled={!canExport} onClick={handleExport}>
             {t.table.exportCount(shown)}
           </Button>
           {isEmpty && <p className={styles.exportHelp}>{t.table.nothingToExport}</p>}
         </>
+      )}
+
+      {exported && (
+        <Toast
+          type="success"
+          title={t.table.exportDoneTitle(exported.count)}
+          description={t.table.exportDoneText(exported.filename)}
+          closeLabel={t.table.close}
+          onClose={closeToast}
+        />
       )}
     </Card>
   )
