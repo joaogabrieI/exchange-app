@@ -1,0 +1,10 @@
+.flag {
+  display: block;
+  flex: none;
+  border-radius: 50%;
+}
+
+.fallback {
+  flex: none;
+  color: var(--color-text-muted);
+}

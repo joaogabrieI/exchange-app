@@ -1,0 +1,120 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 var(--page-margin);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-input);
+  background: var(--color-primary);
+  color: var(--color-accent);
+}
+
+.brand {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.tagline {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.languageSwitch {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border-radius: var(--radius-button);
+  background: var(--color-bg);
+}
+
+.languageButton,
+.languageActive {
+  height: 28px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.languageButton:hover {
+  color: var(--color-text);
+}
+
+.languageActive {
+  background: var(--color-surface);
+  box-shadow: 0 1px 2px rgb(20 24 31 / 8%);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.languageSelect {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: var(--radius-input);
+  background: var(--color-bg);
+}
+
+.languageSelect select {
+  width: 17px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  appearance: none;
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    height: 60px;
+  }
+
+  .logo {
+    gap: var(--space-2);
+  }
+
+  .mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+  }
+
+  .brand {
+    font-size: 17px;
+    line-height: 21px;
+    letter-spacing: 0;
+  }
+
+  .tagline {
+    display: none;
+  }
+}
