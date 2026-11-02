@@ -51,3 +51,8 @@ export function formatDayMonth(isoDate, locale = 'pt-BR') {
 export function formatWeekday(isoDate, locale = 'pt-BR') {
   return new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(parseISO(isoDate))
 }
+
+// Valores muito pequenos (1 IDR em USD) usam a mesma regra das taxas para não virar 0,00.
+export function formatConverted(value, locale = 'pt-BR') {
+  return value < 0.01 ? formatRate(value, locale) : formatAmount(value, locale)
+}

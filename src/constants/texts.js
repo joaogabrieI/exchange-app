@@ -2,6 +2,7 @@
 export const texts = {
   pt: {
     locale: 'pt-BR',
+    thousandsSeparator: '.',
     brandTagline: 'Câmbio',
     language: 'Idioma',
     page: {
@@ -35,6 +36,8 @@ export const texts = {
       dateOutOfRange: (min, max) => `Escolha uma data entre ${min} e ${max}.`,
       noPairData: 'Não há cotação deste par na data escolhida.',
       loadError: 'Não foi possível carregar a cotação.',
+      closeNotice: 'Fechar aviso',
+      noRate: '—',
     },
     currency: {
       select: (role, code, name) => `${role}: ${code}, ${name}. Trocar moeda`,

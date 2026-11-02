@@ -20,13 +20,68 @@
   text-transform: uppercase;
 }
 
+.dateArea {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1) var(--space-3);
+}
+
+.latest {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary);
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.latest:hover {
+  text-decoration: underline;
+}
+
 .quoteDate {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 6px;
+  border-radius: var(--radius-chip);
   color: var(--color-text-muted);
   font-size: 13px;
   line-height: 16px;
+  cursor: pointer;
+}
+
+.quoteDate:hover {
+  color: var(--color-text);
+}
+
+.quoteDate:focus-within {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Campo nativo invisível sobre o texto: clicar na data abre o calendário do navegador. */
+.dateInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 
 .fields {
@@ -86,17 +141,153 @@
   letter-spacing: -0.5px;
 }
 
-.result {
+.fieldBoxError,
+.fieldBoxError:focus-within {
+  background: var(--color-error-bg);
+  border-color: var(--color-error-border);
+  box-shadow: none;
+}
+
+.output {
   flex: 1;
   min-width: 0;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.result {
   color: var(--color-primary);
   font-size: 28px;
   line-height: 34px;
   font-weight: 600;
   letter-spacing: -0.5px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+}
+
+.resultPlaceholder {
+  color: var(--color-disabled-text);
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.fieldError {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-danger);
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.fieldError svg {
+  flex: none;
+}
+
+.warning {
+  display: flex;
+  gap: 10px;
+  padding: var(--space-3);
+  border: 1px solid var(--color-warning-border);
+  border-radius: var(--radius-button);
+  background: var(--color-warning-bg);
+}
+
+.warning svg {
+  flex: none;
+  color: var(--color-warning);
+}
+
+.warningTitle {
+  color: var(--color-warning-title);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.warningText {
+  margin-top: 2px;
+  color: var(--color-warning-text);
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.loadError {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) 10px;
+  padding: var(--space-3);
+  border-radius: var(--radius-button);
+  background: var(--color-danger-soft);
+  color: var(--color-danger-text);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.loadError svg {
+  flex: none;
+}
+
+.retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-field);
+}
+
+.noticeIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-input);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.noticeText {
+  flex: 1;
+  min-width: 0;
+}
+
+.noticeTitle {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 600;
+}
+
+.noticeDescription {
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.noticeClose {
+  display: flex;
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-subtle);
+  cursor: pointer;
 }
 
 .swapSlot {
@@ -208,6 +399,10 @@
     height: 60px;
     padding: 0 8px 0 14px;
     border-radius: var(--radius-button);
+  }
+
+  .notice {
+    padding: var(--space-3);
   }
 
   .amount,

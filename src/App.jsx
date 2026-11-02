@@ -20,6 +20,11 @@ function App() {
   const [to, setTo] = useState(DEFAULT_TO)
   const currencies = useCurrencies(locale)
 
+  function handleSwap() {
+    setFrom(to)
+    setTo(from)
+  }
+
   return (
     <div className={styles.app}>
       <Header />
@@ -28,12 +33,10 @@ function App() {
         <Converter
           from={from}
           to={to}
-          amount={1000}
-          rate={5.3123}
-          effectiveDate="2026-10-30"
           currencies={currencies}
           onFromChange={setFrom}
           onToChange={setTo}
+          onSwap={handleSwap}
         />
         <HistoryCard
           from="USD"
