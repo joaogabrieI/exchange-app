@@ -13,12 +13,12 @@ import { useIsMobile } from '../../hooks/useIsMobile'
 import { useLanguage } from '../../hooks/useLanguage'
 import { useTableFilters } from '../../hooks/useTableFilters'
 import { buildCsv, buildCsvFilename, downloadCsv } from '../../utils/csv'
-import { formatDate, formatRate } from '../../utils/format'
+import { formatDate, formatDayMonth, formatRate } from '../../utils/format'
 import { sortToValue, valueToSort } from '../../utils/sort'
 import styles from './RatesTable.module.css'
 
-// Monta o resumo do estado vazio com os filtros que estão aplicados.
-function describeCriteria(criteria, t, locale) {
+// Monta o resumo do estado vazio. Sem filtro de data, mostra o intervalo dos dados carregados.
+function describeCriteria(criteria, records, t, locale) {
   const { startDate, endDate, minRate, maxRate } = criteria
   const parts = []
 
@@ -30,13 +30,10 @@ function describeCriteria(criteria, t, locale) {
     parts.push(t.table.emptyRateMax(formatRate(maxRate, locale)))
   }
 
-  if (startDate && endDate) {
-    parts.push(t.table.emptyDates(formatDate(startDate, locale), formatDate(endDate, locale)))
-  } else if (startDate) {
-    parts.push(t.table.emptyDateStart(formatDate(startDate, locale)))
-  } else if (endDate) {
-    parts.push(t.table.emptyDateEnd(formatDate(endDate, locale)))
-  }
+  const start = startDate || records[0].date
+  const end = endDate || records[records.length - 1].date
+  const startText = start.slice(0, 4) === end.slice(0, 4) ? formatDayMonth(start, locale) : formatDate(start, locale)
+  parts.push(t.table.emptyDates(startText, formatDate(end, locale)))
 
   return parts.join(' · ')
 }
@@ -109,7 +106,7 @@ function RatesTable({ from, to, records }) {
         <StatusMessage
           icon={SearchX}
           title={t.table.emptyTitle}
-          description={describeCriteria(table.criteria, t, locale)}
+          description={describeCriteria(table.criteria, records, t, locale)}
           role="status"
         >
           <Button variant="secondary" icon={X} iconSize={14} onClick={table.clearFilters}>

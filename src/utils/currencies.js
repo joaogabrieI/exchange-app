@@ -5,7 +5,8 @@ import { POPULAR_CURRENCIES } from '../constants/currencies'
 export function getCurrencyName(code, locale = 'pt-BR', fallback = code) {
   try {
     const name = new Intl.DisplayNames(locale, { type: 'currency', fallback: 'none' }).of(code)
-    return name ?? fallback
+    // Em espanhol o nome vem em minúsculas ("dólar estadounidense").
+    return name ? name.charAt(0).toUpperCase() + name.slice(1) : fallback
   } catch {
     return fallback
   }
