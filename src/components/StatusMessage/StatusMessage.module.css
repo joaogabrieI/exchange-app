@@ -1,0 +1,79 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 200px;
+  padding: var(--space-6) var(--space-4);
+  border-radius: var(--radius-button);
+  background: var(--color-surface-alt);
+  text-align: center;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+
+.icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.title {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 600;
+}
+
+.description {
+  max-width: 420px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 17px;
+}
+
+.danger {
+  gap: 14px;
+  min-height: 300px;
+  background: transparent;
+}
+
+.danger .icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.danger .icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.danger .title {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+.danger .description {
+  max-width: 380px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .description {
+    font-size: 12px;
+  }
+}
