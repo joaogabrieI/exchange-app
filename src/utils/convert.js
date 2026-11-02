@@ -24,6 +24,10 @@ export function parseNumber(text, thousandsSeparator = '.') {
   const decimalPart = decimalIndex === -1 ? '' : clean.slice(decimalIndex + 1)
   if (/[.,]/.test(decimalPart)) return null
 
+  // Separadores de milhar só valem em grupos de 3 dígitos: "1.5.0" é inválido.
+  const integerText = decimalIndex === -1 ? clean : clean.slice(0, decimalIndex)
+  if (/[.,]/.test(integerText) && !/^\d{1,3}([.,]\d{3})+$/.test(integerText)) return null
+
   return Number(`${integerPart}.${decimalPart || '0'}`)
 }
 
