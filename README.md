@@ -1,16 +1,28 @@
-# React + Vite
+# Hermes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA de câmbio em React + JavaScript que consome a API Frankfurter. Projeto acadêmico: Projeto 01 — Currency Exchange App.
 
-Currently, two official plugins are available:
+> README inicial: a versão completa entra na fase final do projeto.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requisitos
 
-## React Compiler
+- **Node.js** `^20.19.0` ou `>=22.12.0` (exigência do Vite 8)
+- **Vite** `8.3.5`, **React** `19.3.1` e **Vitest** `4.1.12`, com versões fixadas no `package.json`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O Vitest fica na versão 4 porque a 5 não aceita Node 20, e o projeto precisa rodar nas mesmas versões de Node que o Vite 8.
 
-## Expanding the ESLint configuration
+## Como rodar
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+```
+
+```bash
+npm run dev
+```
+
+## Outros comandos
+
+- `npm run build`: gera a versão de produção em `dist/`
+- `npm run lint`: roda o ESLint
+- `npm test`: roda os testes com o Vitest
