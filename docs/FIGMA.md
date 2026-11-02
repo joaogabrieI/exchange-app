@@ -34,3 +34,15 @@ Os valores foram lidos diretamente do `.fig`, decodificando os nós do arquivo.
 1. **Margem em telas intermediárias.** O design só define margem lateral de 120 (desktop) e 16 (mobile). Entre 769px e 1280px, usamos 32.
 2. **Estatísticas no mobile.** O frame mobile mostra as 4 estatísticas em grade 2×2, em versão compacta. Seguimos o frame.
 3. **Estatísticas em 10A.** O fluxo de período longo mostra Início, Variação e Atual. Mantivemos as 4 estatísticas em todos os períodos, como o requisito pede.
+4. **Campos de data.** Usamos `<input type="date">`, que oferece o calendário do navegador e sempre entrega uma data válida. O placeholder e o formato exibido (`dd/mm/aaaa`) dependem do idioma do navegador, não do idioma escolhido no app.
+5. **Dica de decimais nos filtros.** O frame principal não mostra a dica, e o fluxo de validação mostra. Ela aparece só enquanto há erro nos filtros, o que mantém a altura do frame principal.
+6. **Loading e erro do histórico.** O conteúdo do card é substituído, mas os chips de período continuam disponíveis. A tabela fica oculta até os dados chegarem, como nos frames mobile. A etiqueta "Falha na API Frankfurter" é um rótulo do frame de estados, não parte da interface, então não é exibida.
+7. **Toast do CSV.** O título reúne "Exportação concluída" e a quantidade de registros. A descrição traz o nome do arquivo e as colunas.
+8. **Filtros no mobile.** Começam abertos, como no frame "Filters (expanded)", e podem ser recolhidos.
+9. **"Usar a mais recente".** Botão que não está no design. Foi adicionado porque o seletor de data não tinha outro caminho para voltar à cotação mais recente.
+10. **Faixa de datas no estado vazio.** Sem filtro de data, o resumo mostra o intervalo dos dados carregados.
+11. **Taxas muito pequenas.** Abaixo de 0,01 usamos 4 algarismos significativos, porque 4 casas transformariam 0,00005514 em 0,0001.
+12. **Nomes das moedas.** Vêm de `Intl.DisplayNames`, que traduz para o idioma atual. O nome em inglês da API é a alternativa e também vale na busca.
+13. **Rótulos de período em inglês.** 1A, 5A e 10A viram 1Y, 5Y e 10Y.
+14. **Ordenação inicial.** Ao clicar em Cotação, a ordem começa crescente, como no fluxo. Ao clicar em Data, começa pelas mais recentes.
+15. **Imagens do design.** Não exportamos PNGs dos frames, porque os valores foram lidos diretamente do `.fig`. Para as evidências da entrega, o autor deve exportá-los pelo Figma.
