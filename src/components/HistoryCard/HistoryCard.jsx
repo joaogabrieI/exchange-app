@@ -8,13 +8,14 @@ import { useLanguage } from '../../hooks/useLanguage'
 import { formatPercent, formatRate } from '../../utils/format'
 import styles from './HistoryCard.module.css'
 
-function HistoryCard({ from, to, periodId, onPeriodChange, stats, points, weekly }) {
+function HistoryCard({ from, to, period, onPeriodChange, history }) {
   const { t, locale } = useLanguage()
   const isMobile = useIsMobile()
 
   const pair = `${from} → ${to}`
-  const periodText = (isMobile ? t.history.periodsShort : t.history.periods)[periodId]
-  const trend = stats.change > 0 ? 'up' : stats.change < 0 ? 'down' : undefined
+  const periodText = (isMobile ? t.history.periodsShort : t.history.periods)[period.id]
+  const { stats, points } = history
+  const trend = stats?.change > 0 ? 'up' : stats?.change < 0 ? 'down' : undefined
 
   return (
     <Card className={styles.card} aria-labelledby="history-title">
@@ -26,39 +27,43 @@ function HistoryCard({ from, to, periodId, onPeriodChange, stats, points, weekly
           </h2>
         </div>
         <div className={styles.periods} role="group" aria-label={t.history.periodsLabel}>
-          {PERIODS.map((period) => (
+          {PERIODS.map((item) => (
             <PeriodChip
-              key={period.id}
-              label={period.id}
-              active={period.id === periodId}
-              onClick={() => onPeriodChange(period.id)}
+              key={item.id}
+              label={item.id}
+              active={item.id === period.id}
+              onClick={() => onPeriodChange(item.id)}
             />
           ))}
         </div>
       </div>
 
-      <dl className={styles.stats}>
-        <StatCard
-          label={isMobile ? t.history.lastShort : t.history.last}
-          value={formatRate(stats.last, locale)}
-        />
-        <StatCard
-          label={isMobile ? t.history.changeShort : t.history.change}
-          value={formatPercent(stats.change, locale)}
-          trend={trend}
-        />
-        <StatCard label={t.history.max} value={formatRate(stats.max, locale)} />
-        <StatCard label={t.history.min} value={formatRate(stats.min, locale)} />
-      </dl>
+      {stats && (
+        <>
+          <dl className={styles.stats}>
+            <StatCard
+              label={isMobile ? t.history.lastShort : t.history.last}
+              value={formatRate(stats.last, locale)}
+            />
+            <StatCard
+              label={isMobile ? t.history.changeShort : t.history.change}
+              value={formatPercent(stats.change, locale)}
+              trend={trend}
+            />
+            <StatCard label={t.history.max} value={formatRate(stats.max, locale)} />
+            <StatCard label={t.history.min} value={formatRate(stats.min, locale)} />
+          </dl>
 
-      <HistoryChart
-        points={points}
-        from={from}
-        to={to}
-        weekly={weekly}
-        label={t.history.chartLabel(pair, periodText)}
-      />
-      {weekly && <p className={styles.note}>{t.history.weeklyNote}</p>}
+          <HistoryChart
+            points={points}
+            from={from}
+            to={to}
+            weekly={period.weekly}
+            label={t.history.chartLabel(pair, periodText)}
+          />
+          {period.weekly && <p className={styles.note}>{t.history.weeklyNote}</p>}
+        </>
+      )}
     </Card>
   )
 }

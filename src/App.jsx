@@ -6,19 +6,22 @@ import HistoryCard from './components/HistoryCard/HistoryCard'
 import PageTitle from './components/PageTitle/PageTitle'
 import RatesTable from './components/RatesTable/RatesTable'
 import { DEFAULT_FROM, DEFAULT_TO } from './constants/currencies'
-import { MOCK_RECORDS, MOCK_STATS } from './constants/mockData'
+import { DEFAULT_PERIOD_ID, PERIODS } from './constants/periods'
 import { useCurrencies } from './hooks/useCurrencies'
+import { useHistory } from './hooks/useHistory'
 import { useLanguage } from './hooks/useLanguage'
 import styles from './App.module.css'
-
-const MOCK_POINTS = [...MOCK_RECORDS].reverse()
 
 function App() {
   const { locale } = useLanguage()
   // Lifting state up: o par fica no App porque conversor, gráfico e tabela dependem dele.
   const [from, setFrom] = useState(DEFAULT_FROM)
   const [to, setTo] = useState(DEFAULT_TO)
+  const [periodId, setPeriodId] = useState(DEFAULT_PERIOD_ID)
+  const period = PERIODS.find((item) => item.id === periodId)
+
   const currencies = useCurrencies(locale)
+  const history = useHistory(from, to, period)
 
   function handleSwap() {
     setFrom(to)
@@ -39,14 +42,13 @@ function App() {
           onSwap={handleSwap}
         />
         <HistoryCard
-          from="USD"
-          to="BRL"
-          periodId="30D"
-          onPeriodChange={() => {}}
-          stats={MOCK_STATS}
-          points={MOCK_POINTS}
+          from={from}
+          to={to}
+          period={period}
+          onPeriodChange={setPeriodId}
+          history={history}
         />
-        <RatesTable from="USD" to="BRL" records={MOCK_RECORDS} />
+        {history.status === 'ready' && <RatesTable from={from} to={to} records={history.records} />}
       </main>
       <Footer />
     </div>
