@@ -1,6 +1,6 @@
 import { parseISO } from 'date-fns'
 
-const MINUS_SIGN = '−'
+const MINUS_SIGN = '\u2212'
 
 export function formatNumber(value, locale = 'pt-BR', decimals = 2) {
   return new Intl.NumberFormat(locale, {

@@ -21,8 +21,8 @@ export function buildCsvFilename(from, to, records) {
 
 // Gera o arquivo no próprio navegador e dispara o download por um link temporário.
 export function downloadCsv(content, filename) {
-  // O BOM (﻿) faz o Excel reconhecer o UTF-8 e exibir "cotação" corretamente.
-  const blob = new Blob([`﻿${content}`], { type: 'text/csv;charset=utf-8' })
+  // O BOM (\uFEFF) faz o Excel reconhecer o UTF-8 e exibir "cotação" corretamente.
+  const blob = new Blob([`\uFEFF${content}`], { type: 'text/csv;charset=utf-8' })
   const url = URL.createObjectURL(blob)
 
   const link = document.createElement('a')
