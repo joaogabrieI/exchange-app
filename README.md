@@ -4,14 +4,6 @@ Single Page Application em React para converter moedas, analisar o histórico de
 
 Projeto 01 — Currency Exchange App (projeto acadêmico individual).
 
-## Imagens
-
-> _Pendente: adicionar capturas em `docs/images/` e referenciar aqui._
-
-- Desktop: _pendente_
-- Mobile: _pendente_
-- Estados de loading, erro e vazio: _pendente_
-
 ## Funcionalidades
 
 - **Conversor:** seleção de moedas com busca, valor com vírgula ou ponto, troca de moedas, taxa utilizada, taxa inversa, data efetiva e consulta por data.
